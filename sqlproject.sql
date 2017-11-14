@@ -1,26 +1,3 @@
-/**
-create table projectdraft.dept
-  (building varchar(15),
-  room_number varchar(7),
-  capacity numeric(4,0),
-  primary key (building, room_number));
-
-SELECT * FROM projectdraft.course
-
-
-
-insert into projectdraft.classroom1 values ('Packard', '101', '500');
-insert into projectdraft.deptartment values ('Biology', 'Watson', '90000');
-insert into projectdraft.course values ('BIO-101', 'Intro. to   Biology', 'Biology', '4');
-
-SELECT dept_name FROM projectdraft.course
-
-#Inner join example
-select d.capacity,i.building,i.dept_name FROM department i
-inner join classroom d on i.building = d.building
-
-**/
-
 drop TABLE projectdraft.billinginfo
 drop TABLE projectdraft.customer
 drop TABLE projectdraft.orders
