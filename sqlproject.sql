@@ -1,6 +1,11 @@
 drop TABLE projectdraft.billinginfo
 drop TABLE projectdraft.customer
 drop TABLE projectdraft.orders
+drop TABLE projectdraft.paymentmethod
+drop TABLE projectdraft.orderpayments
+drop TABLE projectdraft.inventory
+drop TABLE projectdraft.orderdetails
+
 
 create table projectdraft.customer
   (Customer_id varchar(15),
