@@ -40,12 +40,12 @@ create table projectdraft.orders
   Order_date DATETIME,
   Paymentstatus VARCHAR(15),
   Billing_address VARCHAR(30),
-  total VARCHAR(15),
+  total int,
   Customer_id INT,
   PRIMARY KEY (orders_id),
   FOREIGN KEY (Customer_id) REFERENCES projectdraft.customer);
 
-insert into projectdraft.orders VALUES (getdate(), 'paid', '1666 Foxy', '99.99', 1)
+insert into projectdraft.orders VALUES (getdate(), 'paid', '1666 Foxy', 45, 1)
 
 
 
@@ -105,6 +105,7 @@ create table projectdraft.inventory
   )
 
 INSERT into projectdraft.inventory VALUES (concat(1300, 'A1'),'A1',703,'No')
+INSERT into projectdraft.inventory VALUES (concat(1300, 'A2'),'A2',703,'No')
 INSERT into projectdraft.inventory VALUES (concat(1300, 'T1'),'T1',700,'No')
 INSERT into projectdraft.inventory VALUES (concat(1300, 'M1'),'M1',701,'No')
 INSERT into projectdraft.inventory VALUES (concat(1300, 'TICK1'),'TICK1',702,'No')
@@ -123,7 +124,7 @@ create TABLE projectdraft.album
   Album_realease_year VARCHAR(15),
   Prodtype_id INT,
   Artist_id INT,
-  Album_price VARCHAR(15),
+  Album_price INT,
   PRIMARY KEY (Album_id),
   FOREIGN KEY (Album_id) REFERENCES projectdraft.inventory(Product_id),
   FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist,
@@ -137,7 +138,7 @@ create table projectdraft.track
   Album_id VARCHAR(15),
   Artist_id INT,
   Prodtype_id VARCHAR(15),
-  Track_price VARCHAR(15),
+  Track_price INT,
   PRIMARY KEY (Track_id),
   FOREIGN KEY (Track_id) REFERENCES projectdraft.inventory(Product_id),
   FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist);
@@ -149,18 +150,19 @@ create table projectdraft.merchandise
   Merchandise_name VARCHAR(15),
   Prodtype_id VARCHAR(15),
   Artist_id INT,
+  Merch_price INT,
   PRIMARY KEY (Merch_id),
   FOREIGN KEY (Merch_id) REFERENCES projectdraft.inventory(Product_id),
   FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist);
 
-insert into projectdraft.merchandise VALUES ('M1','Drake T-SHIRT', 701, 800 )
+insert into projectdraft.merchandise VALUES ('M1','Drake T-SHIRT', 701, 800, 29.99 )
 
 create table projectdraft.ticket
   (Ticket_id VARCHAR(15),
   Event_name VARCHAR(15),
   Event_date Date,
   Event_Location VARCHAR(15),
-  Ticket_price VARCHAR(15),
+  Ticket_price INT,
   Prodtype_id INT,
   Artist_id INT,
   PRIMARY KEY (Ticket_id),
@@ -176,7 +178,6 @@ create table projectdraft.order_line
   Order_Line_id   INT IDENTITY(1400,1) NOT NULL,
   Order_id        INT,
   Quantity        VARCHAR(15),
-  total_price      VARCHAR(15),
   Sku_id          VARCHAR(15),
   Purchase_date   VARCHAR(15),
   Returnable_date VARCHAR(15),
@@ -185,5 +186,4 @@ create table projectdraft.order_line
   FOREIGN KEY (Sku_id) REFERENCES projectdraft.inventory(Sku_id)
 )
 
-INSERT INTO projectdraft.order_line VALUES (300, 5, 100, '1300A1', GETDATE(), dateadd(day, 30, getdate()))
-
+INSERT INTO projectdraft.order_line VALUES (300, 5,'1300A1', GETDATE(), dateadd(day, 30, getdate()))
