@@ -33,7 +33,7 @@ create TABLE projectdraft.shipping_address_info
   PRIMARY KEY (Address_id),
   FOREIGN KEY (Customer_id) references projectdraft.customer);
 
-insert into projectdraft.shipping_address_info values (1, '3975 freedom cicle','n/a','Santa Clara', 'CA', '95131', '408-503-0289')
+insert into projectdraft.shipping_address_info values (1, '3975 freedom circle','n/a','Santa Clara', 'CA', '95131', '408-503-0289')
 
 create table projectdraft.orders
   (Orders_id INT IDENTITY(300,1) NOT NULL,
@@ -89,26 +89,14 @@ create table projectdraft.product_type
   PRIMARY KEY (Prodtype_id)
   );
 
-insert into projectdraft.product_type VALUES ('Digital')
+insert into projectdraft.product_type VALUES ('Digital Track')
+insert into projectdraft.product_type VALUES ('Digital Album')
+insert into projectdraft.product_type VALUES ('Physical Album')
 insert into projectdraft.product_type VALUES ('Merch')
 insert into projectdraft.product_type VALUES ('Tickets')
-insert into projectdraft.product_type VALUES ('Album')
 
-create table projectdraft.inventory
-  (Inventory_id INT IDENTITY(1300,1) NOT NULL,
-  Sku_id VARCHAR(15) UNIQUE ,
-  Product_id VARCHAR(15),
-  Prodtype_id INT,
-  Returnable VARCHAR(15),
-  PRIMARY KEY (Product_id),
-  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type
-  )
 
-INSERT into projectdraft.inventory VALUES (concat(1300, 'A1'),'A1',703,'No')
-INSERT into projectdraft.inventory VALUES (concat(1300, 'A2'),'A2',703,'No')
-INSERT into projectdraft.inventory VALUES (concat(1300, 'T1'),'T1',700,'No')
-INSERT into projectdraft.inventory VALUES (concat(1300, 'M1'),'M1',701,'No')
-INSERT into projectdraft.inventory VALUES (concat(1300, 'TICK1'),'TICK1',702,'No')
+
 
 create table projectdraft.artist
   (Artist_id INT IDENTITY(800,1) NOT NULL,
@@ -126,7 +114,6 @@ create TABLE projectdraft.album
   Artist_id INT,
   Album_price INT,
   PRIMARY KEY (Album_id),
-  FOREIGN KEY (Album_id) REFERENCES projectdraft.inventory(Product_id),
   FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist,
   FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type);
 
@@ -140,7 +127,6 @@ create table projectdraft.track
   Prodtype_id VARCHAR(15),
   Track_price INT,
   PRIMARY KEY (Track_id),
-  FOREIGN KEY (Track_id) REFERENCES projectdraft.inventory(Product_id),
   FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist);
 
 insert into projectdraft.track VALUES ('T1','Fireworks',900, 800, 700, 0.99)
@@ -152,7 +138,6 @@ create table projectdraft.merchandise
   Artist_id INT,
   Merch_price INT,
   PRIMARY KEY (Merch_id),
-  FOREIGN KEY (Merch_id) REFERENCES projectdraft.inventory(Product_id),
   FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist);
 
 insert into projectdraft.merchandise VALUES ('M1','Drake T-SHIRT', 701, 800, 29.99 )
@@ -166,7 +151,6 @@ create table projectdraft.ticket
   Prodtype_id INT,
   Artist_id INT,
   PRIMARY KEY (Ticket_id),
-  FOREIGN KEY (Ticket_id) REFERENCES projectdraft.inventory(Product_id),
   FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist,
   FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type
   )
@@ -187,3 +171,30 @@ create table projectdraft.order_line
 )
 
 INSERT INTO projectdraft.order_line VALUES (300, 5,'1300A1', GETDATE(), dateadd(day, 30, getdate()))
+
+create table projectdraft.inventory
+  (Inventory_id INT IDENTITY(1300,1) NOT NULL,
+  Sku_id VARCHAR(15) UNIQUE ,
+  Product_id VARCHAR(15),
+  Prodtype_id INT,
+  Returnable VARCHAR(15),
+  PRIMARY KEY (Product_id),
+  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type
+  )
+
+
+delete from projectdraft.order_line
+delete from projectdraft.inventory
+
+select * from projectdraft.album
+
+select * from projectdraft.inventory
+
+
+INSERT INTO projectdraft.inventory (Product_id, Prodtype_id, Sku_id, Returnable)
+SELECT projectdraft.album.Album_id, Prodtype_id, concat('A1-', Prodtype_id), 'NO'
+FROM projectdraft.album
+
+INSERT INTO projectdraft.inventory (Product_id, Prodtype_id, Sku_id, Returnable)
+SELECT projectdraft.album.Album_id, Prodtype_id, concat('A1-', Prodtype_id), 'NO'
+FROM projectdraft.album where Prodtype_id = 700
