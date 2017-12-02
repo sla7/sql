@@ -284,6 +284,41 @@ INSERT INTO projectdraft.ticket VALUES ('TICK11','Clean Bandit', '03/27/2018', '
 INSERT INTO projectdraft.ticket VALUES ('TICK12','98 Degrees', '11/19/2018', 'Flint Center',821,704,25.00);
 
 
+/* INVENTORY */
+
+CREATE TABLE projectdraft.inventory(
+  Inventory_id int IDENTITY(1300,1) NOT NULL UNIQUE,
+  Product_id varchar(15),
+  SKU_id varchar(15) UNIQUE,
+  Prodtype_id int,
+  Quantity int,
+  Returnable varchar(15),
+  PRIMARY KEY (Inventory_id),
+  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type(Prodtype_id)
+  );
+
+INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
+SELECT projectdraft.track.track_id,concat('X1',Track_id),Prodtype_id,1000,'No'
+FROM projectdraft.track;
+
+INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
+SELECT projectdraft.album.album_id,concat('X1',Album_id),Prodtype_id,1000,'No'
+FROM projectdraft.album
+WHERE Prodtype_id = 701;
+
+INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
+SELECT projectdraft.album.album_id,concat('X1',Album_id),Prodtype_id,1000,'Yes'
+FROM projectdraft.album
+WHERE Prodtype_id = 702;
+
+INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
+SELECT projectdraft.merchandise.Merch_id,concat('X1',Merch_id),Prodtype_id,1000,'Yes'
+FROM projectdraft.merchandise;
+
+INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
+SELECT projectdraft.ticket.ticket_id,concat('X1',Ticket_id),Prodtype_id,1000,'No'
+FROM projectdraft.ticket;
+
 
 
 create table projectdraft.order_line
@@ -305,39 +340,7 @@ INSERT INTO projectdraft.order_line VALUES (300, 5,'1300A1', GETDATE(), dateadd(
 
 
 
-/* INVENTORY */
 
-CREATE TABLE projectdraft.inventory(
-  Inventory_id int IDENTITY(1300,1) NOT NULL UNIQUE,
-  Product_id varchar(15),
-  SKU_id varchar(15) UNIQUE,
-  Prodtype_id int,
-  Returnable varchar(15),
-  PRIMARY KEY (Inventory_id),
-  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type(Prodtype_id)
-  );
-
-INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
-SELECT projectdraft.track.track_id,concat('X1',Track_id),Prodtype_id,'No'
-FROM projectdraft.track;
-
-INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
-SELECT projectdraft.album.album_id,concat('X1',Album_id),Prodtype_id,'No'
-FROM projectdraft.album
-WHERE Prodtype_id = 701;
-
-INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
-SELECT projectdraft.album.album_id,concat('X1',Album_id),Prodtype_id,'Yes'
-FROM projectdraft.album
-WHERE Prodtype_id = 702;
-
-INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
-SELECT projectdraft.merchandise.Merch_id,concat('X1',Merch_id),Prodtype_id,'Yes'
-FROM projectdraft.merchandise;
-
-INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
-SELECT projectdraft.ticket.ticket_id,concat('X1',Ticket_id),Prodtype_id,'No'
-FROM projectdraft.ticket;
 
 
 
