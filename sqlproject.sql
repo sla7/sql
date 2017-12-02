@@ -104,7 +104,7 @@ CREATE TABLE projectdraft.paymentmethod(
   PRIMARY KEY (Payment_id),
   FOREIGN KEY (Customer_id) REFERENCES projectdraft.customer(Customer_id),
   FOREIGN KEY (Payment_type_id) REFERENCES projectdraft.payment_type,
-  FOREIGN KEY (Billing_id) REFERENCES projectdraft.billinginfo(Billing_id)
+  FOREIGN KEY (Billing_id) REFERENCES projectdraft.billing_info(Billing_id)
 );
 
 INSERT INTO projectdraft.paymentmethod VALUES (1,400,'4352-5423-6675-4404','Steven La','01/20/2022','234',100);
