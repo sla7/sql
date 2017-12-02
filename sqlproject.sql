@@ -1,10 +1,23 @@
-create table projectdraft.customer
-  (Customer_id INT IDENTITY(1,1) NOT NULL,
-  First_name varchar(15),
-  Last_Name VARCHAR(15),
-  primary key (Customer_id));
+/* CUSTOMER */
 
-insert into projectdraft.customer VALUES ('Steven','La')
+CREATE TABLE projectdraft.customer(
+  Customer_id int IDENTITY(1,1) NOT NULL UNIQUE,
+  First_Name varchar(15),
+  Last_Name VARCHAR(15),
+  Email_Address varchar(50),
+  Phone_Number varchar(50),
+  Billing_ID varchar(5),
+  Address_ID varchar(5),
+  PRIMARY KEY (Customer_id),
+);
+
+INSERT INTO projectdraft.customer VALUES ('Steven','La','sla@gmail.com','408-123-4567',100,200);
+INSERT INTO projectdraft.customer VALUES ('Ken','Ohata','kohata@gmail.com','408-123-4568',101,201);
+INSERT INTO projectdraft.customer VALUES ('Andrew','Lee','alee@gmail.com','408-123-4569',102,202);
+INSERT INTO projectdraft.customer VALUES ('Emily','Ho','eho@gmail.com','408-123-4560',103,203);
+INSERT INTO projectdraft.customer VALUES ('Alice','James','ajames@gmail.com','408-123-4561',104,204);
+INSERT INTO projectdraft.customer VALUES ('Will','Smith','wsmith@gmail.com','408-123-4562',105,205);
+
 
 
 create table projectdraft.billinginfo
