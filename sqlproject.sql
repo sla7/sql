@@ -254,7 +254,7 @@ INSERT INTO projectdraft.merchandise VALUES ('M6','Drake Shirt', 703, 805, 15.00
 INSERT INTO projectdraft.merchandise VALUES ('M7','J. Cole Duffel', 703, 806, 65.00);
 INSERT INTO projectdraft.merchandise VALUES ('M8','The Weekend Keychain', 703, 816, 8.00);
 INSERT INTO projectdraft.merchandise VALUES ('M9','Cardi B Beanie', 703, 818, 20.00);
-INSERT INTO projectdraft.merchandise VALUES ('M7','Rihanna Socks', 703, 817, 65.00);
+INSERT INTO projectdraft.merchandise VALUES ('M10','Rihanna Socks', 703, 817, 65.00);
 
 
 CREATE TABLE projectdraft.ticket(
