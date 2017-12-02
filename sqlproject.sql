@@ -133,53 +133,106 @@ INSERT INTO projectdraft.orderpayment VALUES (305, 505, 'PAID');
 
 
 
-create table projectdraft.product_type
-  (Prodtype_id INT IDENTITY(700,1) NOT NULL,
-  Prodtype_name VARCHAR(15)
+/* PROD TYPE */
+
+CREATE TABLE projectdraft.product_type (
+  Prodtype_id int IDENTITY(700,1) NOT NULL,
+  Prodtype_name varchar(15)
   PRIMARY KEY (Prodtype_id)
   );
 
-insert into projectdraft.product_type VALUES ('Digital Track')
-insert into projectdraft.product_type VALUES ('Digital Album')
-insert into projectdraft.product_type VALUES ('Physical Album')
-insert into projectdraft.product_type VALUES ('Merch')
-insert into projectdraft.product_type VALUES ('Tickets')
+INSERT INTO projectdraft.product_type VALUES ('Digital Track');
+INSERT INTO projectdraft.product_type VALUES ('Digital Album');
+INSERT INTO projectdraft.product_type VALUES ('Physical Album');
+INSERT INTO projectdraft.product_type VALUES ('Merchandise');
+INSERT INTO projectdraft.product_type VALUES ('Ticket');
 
 
+/* ARTIST */
 
-
-create table projectdraft.artist
-  (Artist_id INT IDENTITY(800,1) NOT NULL,
-  Artist_name VARCHAR(15)
+CREATE TABLE projectdraft.artist(
+  Artist_id int IDENTITY(800,1) NOT NULL UNIQUE,
+  Artist_name varchar(15)
   PRIMARY KEY (Artist_id)
-  )
+  );
 
-INSERT into projectdraft.artist VALUES ('Drake')
+INSERT INTO projectdraft.artist VALUES ('Eminem');
+INSERT INTO projectdraft.artist VALUES ('Kanye West');
+INSERT INTO projectdraft.artist VALUES ('Linkin Park');
+INSERT INTO projectdraft.artist VALUES ('Kanye West');
+INSERT INTO projectdraft.artist VALUES ('Sam Smith');
+INSERT INTO projectdraft.artist VALUES ('Adele');
+INSERT INTO projectdraft.artist VALUES ('Drake');
+INSERT INTO projectdraft.artist VALUES ('J. Cole');
+INSERT INTO projectdraft.artist VALUES ('Chris Brown');
+INSERT INTO projectdraft.artist VALUES ('Camila Cabello');
+INSERT INTO projectdraft.artist VALUES ('Ed Sheeran');
+INSERT INTO projectdraft.artist VALUES ('Maroon 5');
+INSERT INTO projectdraft.artist VALUES ('Taylor Swift');
+INSERT INTO projectdraft.artist VALUES ('Imagine Dragons');
+INSERT INTO projectdraft.artist VALUES ('Charlie Puth');
+INSERT INTO projectdraft.artist VALUES ('Quavo');
+INSERT INTO projectdraft.artist VALUES ('Clean Bandit');
+INSERT INTO projectdraft.artist VALUES ('The Weekend');
+INSERT INTO projectdraft.artist VALUES ('Rihanna');
+INSERT INTO projectdraft.artist VALUES ('Luke Bryan');
+INSERT INTO projectdraft.artist VALUES ('Demi Lovato');
 
-create TABLE projectdraft.album
-  (Album_id VARCHAR(15),
-  Album_name VARCHAR(15),
-  Album_realease_year VARCHAR(15),
-  Prodtype_id INT,
-  Artist_id INT,
-  Album_price INT,
-  PRIMARY KEY (Album_id),
-  FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist,
-  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type);
 
-insert into projectdraft.album VALUES ('A1','Thank Me Later', 2010, 703, 800, 9.99)
-
-create table projectdraft.track
-  (Track_id VARCHAR(15),
-  Track_name VARCHAR(15),
-  Album_id VARCHAR(15),
-  Artist_id INT,
-  Prodtype_id VARCHAR(15),
-  Track_price INT,
+CREATE TABLE projectdraft.track(
+  Track_id varchar(15),
+  Track_name varchar(50),
+  Genre varchar(50),
+  Album_id varchar(15),
+  Artist_id int,
+  Prodtype_id varchar(15),
+  Track_price float,
   PRIMARY KEY (Track_id),
-  FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist);
+  FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist(Artist_id)
+);
 
-insert into projectdraft.track VALUES ('T1','Fireworks',900, 800, 700, 0.99)
+INSERT INTO projectdraft.track VALUES ('T1','Lose Yourself','Hip Hop',900, 800, 700, 0.79);
+INSERT INTO projectdraft.track VALUES ('T2','Wolves','Hip Hop',901, 801, 700, 0.99);
+INSERT INTO projectdraft.track VALUES ('T3','Numb','Rock',902, 802, 700, 0.99);
+INSERT INTO projectdraft.track VALUES ('T4','Too Good at Goodbyes','Pop',903, 803, 700, 0.99);
+INSERT INTO projectdraft.track VALUES ('T5','Hello','Pop',904, 804, 700, 1.29);
+INSERT INTO projectdraft.track VALUES ('T6','Fireworks','R&B',905, 805, 700, 1.29);
+INSERT INTO projectdraft.track VALUES ('T7','In The Morning','Hip Hop',906, 806, 700, 1.29);
+INSERT INTO projectdraft.track VALUES ('T8','Havana','Pop',907, 806, 700, 1.29);
+INSERT INTO projectdraft.track VALUES ('T9','Shape of You','Pop',907, 806, 700, 1.29);
+
+
+
+CREATE TABLE projectdraft.album(
+  Album_id varchar(15),
+  Album_name varchar(100),
+  Album_realease_year int,
+  Genre varchar(50),
+  Prodtype_id int,
+  Artist_id int,
+  Album_price float,
+  PRIMARY KEY (Album_id),
+  FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist(Artist_id),
+  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type(Prodtype_id)
+);
+
+INSERT INTO projectdraft.album VALUES ('A1','8 Mile', 2002, 'Hip Hop', 701, 800, 6.99);
+INSERT INTO projectdraft.album VALUES ('A2','The Life of Pablo', 2004, 'Hip Hop', 701, 801, 11.99);
+INSERT INTO projectdraft.album VALUES ('A3','Meteora', 2003, 'Rock', 701, 802, 7.99);
+INSERT INTO projectdraft.album VALUES ('A4','The Thrill of It All', 2017, 'Pop', 701, 803, 9.99);
+INSERT INTO projectdraft.album VALUES ('A5','25', 2015, 'Pop', 701, 804, 10.99);
+INSERT INTO projectdraft.album VALUES ('A6','Thank Me Later', 2010, 'R&B', 701, 805, 6.99);
+INSERT INTO projectdraft.album VALUES ('A7','Cole World', 2011, 'Hip Hop', 701, 806, 11.99);
+INSERT INTO projectdraft.album VALUES ('A8','8 Mile', 2002, 'Hip Hop', 702, 800, 6.99);
+INSERT INTO projectdraft.album VALUES ('A9','The Life of Pablo', 2004, 'Hip Hop', 702, 801, 11.99);
+INSERT INTO projectdraft.album VALUES ('A10','Meteora', 2003, 'Rock', 702, 802, 7.99);
+INSERT INTO projectdraft.album VALUES ('A11','The Thrill of It All', 2017, 'Pop', 702, 803, 9.99);
+INSERT INTO projectdraft.album VALUES ('A12','25', 2015, 'Pop', 702, 804, 10.99);
+INSERT INTO projectdraft.album VALUES ('A13','Thank Me Later', 2010, 'R&B', 702, 805, 6.99);
+INSERT INTO projectdraft.album VALUES ('A14','Cole World', 2011, 'Hip Hop', 702, 806, 11.99);
+INSERT INTO projectdraft.album VALUES ('A15','Heartbreak On A Full Moon', 2017, 'Hip Hop', 701, 806, 16.99);
+INSERT INTO projectdraft.album VALUES ('A16','What Makes You Country', 2017, 'Country', 701, 806, 9.99);
+
 
 create table projectdraft.merchandise
   (Merch_id VARCHAR(15),
