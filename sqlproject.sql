@@ -321,11 +321,14 @@ FROM projectdraft.ticket;
 
 
 
+
+/* ORDER LINE - STILL NEED TO ADD DATA FOR THIS -- WILL TRY LATER TONIGHT */
+
 create table projectdraft.order_line
 (
   Order_Line_id   INT IDENTITY(1400,1) NOT NULL,
   Order_id        INT,
-  Quantity        VARCHAR(15),
+  Quantity        int,
   Sku_id          VARCHAR(15),
   Purchase_date   VARCHAR(15),
   Returnable_date VARCHAR(15),
@@ -334,7 +337,7 @@ create table projectdraft.order_line
   FOREIGN KEY (Sku_id) REFERENCES projectdraft.inventory(Sku_id)
 )
 
-INSERT INTO projectdraft.order_line VALUES (300, 5,'1300A1', GETDATE(), dateadd(day, 30, getdate()))
+INSERT INTO projectdraft.order_line VALUES (300, 5,'X1T1', GETDATE(), dateadd(day, 30, getdate()))
 
 
 
