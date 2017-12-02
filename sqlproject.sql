@@ -19,34 +19,49 @@ INSERT INTO projectdraft.customer VALUES ('Alice','James','ajames@gmail.com','40
 INSERT INTO projectdraft.customer VALUES ('Will','Smith','wsmith@gmail.com','408-123-4562',105,205);
 
 
+CREATE TABLE projectdraft.billing_info(
+  Billing_id int IDENTITY(100,1) NOT NULL,
+  Billing_FName varchar(15),
+  Billing_LName varchar(15),
+  Billing_address varchar(50),
+  Billing_city varchar(20),
+  Billing_state varchar(2),
+  Billing_zipcode varchar(15),
+  Customer_id  int,
+  PRIMARY KEY (Billing_id),
+  FOREIGN KEY (Customer_id) REFERENCES projectdraft.customer(Customer_id)
+);
 
-create table projectdraft.billinginfo
-  (Billinginfo_id INT IDENTITY(100,1) NOT NULL,
-  Billing_Name VARCHAR(15),
-  Billing_Address VARCHAR(15),
-  Billing_city VARCHAR(15),
-  Billing_state VARCHAR(15),
-  Billing_zip VARCHAR(15),
-  Customer_id   INT,
-  PRIMARY KEY (billinginfo_id),
-  foreign key (Customer_id) references projectdraft.customer);
-
-insert into projectdraft.billinginfo values ('Steven', '1560 shumaker','sanjose','ca','95131', 1);
+INSERT INTO projectdraft.billing_info VALUES ('Steven','La','1560 Shumaker','San Jose','CA','95131',1);
+INSERT INTO projectdraft.billing_info VALUES ('Ken','Ohata','200 Music Way','Irvine','CA','92602',2);
+INSERT INTO projectdraft.billing_info VALUES ('Andrew','Lee','300 Music Way','Irvine','CA','92602',3);
+INSERT INTO projectdraft.billing_info VALUES ('Emily','Ho','400 Music Way','Irvine','CA','92602',4);
+INSERT INTO projectdraft.billing_info VALUES ('Alice','James','500 Music Way','Irvine','CA','92602',5);
+INSERT INTO projectdraft.billing_info VALUES ('Will','Smith','600 Music Way','Irvine','CA','92602',6);
 
 
-create TABLE projectdraft.shipping_address_info
-  (Address_id INT IDENTITY(200,1) NOT NULL,
-  Customer_id INT,
+CREATE TABLE projectdraft.shipping_info(
+  Address_id int IDENTITY(200,1) NOT NULL,
+  First_Name varchar(15),
+  Last_Name varchar(15),
   Address_line1 VARCHAR(40),
   Address_line2 VARCHAR(40),
   City VARCHAR(15),
-  state VARCHAR(15),
-  zipcode VARCHAR(15),
-  Cust_phone VARCHAR(15),
+  State VARCHAR(15),
+  Zipcode VARCHAR(15),
+  Phone_number VARCHAR(15),
+  Customer_id int,
   PRIMARY KEY (Address_id),
-  FOREIGN KEY (Customer_id) references projectdraft.customer);
+  FOREIGN KEY (Customer_id) REFERENCES projectdraft.customer(Customer_id)
+);
 
-insert into projectdraft.shipping_address_info values (1, '3975 freedom circle','n/a','Santa Clara', 'CA', '95131', '408-503-0289')
+INSERT INTO projectdraft.shipping_info VALUES ('Steven','La','3975 Freedom Cicle',' ','Santa Clara','CA','95131','408-503-0289',1);
+INSERT INTO projectdraft.shipping_info VALUES ('Ken','Ohata','200 Music Way',' ','Irvine','CA','92602','408-123-4568',2);
+INSERT INTO projectdraft.shipping_info VALUES ('Andrew','Lee','300 Music Way',' ','Irvine','CA','92602','408-123-4569',3);
+INSERT INTO projectdraft.shipping_info VALUES ('Emily','Ho','400 Music Way',' ','Irvine','CA','92602','408-123-4560',4);
+INSERT INTO projectdraft.shipping_info VALUES ('Amy','James','100 Apple Way','Apt 605','Santa Clara','CA','95131','408-503-1111',5);
+INSERT INTO projectdraft.shipping_info VALUES ('Cat','Smith','200 Apple Way',' ','Santa Clara','CA','95131','408-503-2222',6);
+
 
 create table projectdraft.orders
   (Orders_id INT IDENTITY(300,1) NOT NULL,
@@ -62,39 +77,61 @@ insert into projectdraft.orders VALUES (getdate(), 'paid', '1666 Foxy', 45, 1)
 
 
 
-create table projectdraft.payment_type
-  (
-  Payment_type_id INT IDENTITY(400,1) NOT NULL,
-  Payment_type    VARCHAR(15),
+/* PAYMENT TYPE */
+
+CREATE TABLE projectdraft.payment_type(
+  Payment_type_id int IDENTITY(400,1) NOT NULL,
+  Payment_type    varchar(30),
   PRIMARY KEY (Payment_type_id)
   );
 
-insert into projectdraft.payment_type values ('VISA')
+INSERT INTO projectdraft.payment_type values ('American Express');
+INSERT INTO projectdraft.payment_type values ('Discover');
+INSERT INTO projectdraft.payment_type values ('Visa');
 
 
-create table projectdraft.paymentmethod
-  (Payment_id INT IDENTITY(500,1) NOT NULL,
-  Customer_id INT,
-  Payment_type_id INT,
+/* PAYMENT METHOD */
+
+CREATE TABLE projectdraft.paymentmethod(
+  Payment_id int IDENTITY(500,1) NOT NULL,
+  Customer_id int,
+  Payment_type_id int,
   Card_Number VARCHAR(19),
-  NameOnCard VARCHAR(15),
+  NameOnCard VARCHAR(50),
   CardExp DATE,
   Card_CSV_code VARCHAR(15),
+  Billing_id int,
   PRIMARY KEY (Payment_id),
-  FOREIGN KEY (Customer_id) REFERENCES projectdraft.customer,
-  FOREIGN KEY (Payment_type_id) REFERENCES projectdraft.payment_type);
+  FOREIGN KEY (Customer_id) REFERENCES projectdraft.customer(Customer_id),
+  FOREIGN KEY (Payment_type_id) REFERENCES projectdraft.payment_type,
+  FOREIGN KEY (Billing_id) REFERENCES projectdraft.billinginfo(Billing_id)
+);
 
-insert into projectdraft.paymentmethod VALUES (1, 400 ,'4352-5423-6675-4404','Steven La','2200/1/20','234')
+INSERT INTO projectdraft.paymentmethod VALUES (1,400,'4352-5423-6675-4404','Steven La','01/20/2022','234',100);
+INSERT INTO projectdraft.paymentmethod VALUES (2,400,'4352-5423-6675-3333','Ken Ohata','02/18/2019','200',101);
+INSERT INTO projectdraft.paymentmethod VALUES (3,400,'4352-5423-6675-1111','Andrew Lee','03/05/2020','196',102);
+INSERT INTO projectdraft.paymentmethod VALUES (4,400,'4352-5423-6675-2222','Emily Ho','04/10/2021','789',103);
+INSERT INTO projectdraft.paymentmethod VALUES (5,400,'4352-5423-6675-4000','Alice James','05/07/2022','453',104);
+INSERT INTO projectdraft.paymentmethod VALUES (6,400,'4352-5423-6675-5000','Will Smith','06/11/2019','567',105);
 
+
+/* ORDER PAYMENT */
 
 create table projectdraft.orderpayment
-  (Order_id INT,
-  Payment_id INT,
-  Payment_status VARCHAR(15)
+  (Order_id int,
+  Payment_id int,
+  Payment_status varchar(15)
   FOREIGN KEY (Order_id) REFERENCES projectdraft.orders,
   FOREIGN KEY (Payment_id) REFERENCES projectdraft.paymentmethod);
 
-insert into projectdraft.orderpayment VALUES (300, 500, 'PAID')
+INSERT INTO projectdraft.orderpayment VALUES (300, 500, 'PAID');
+INSERT INTO projectdraft.orderpayment VALUES (301, 501, 'PAID');
+INSERT INTO projectdraft.orderpayment VALUES (302, 502, 'PAID');
+INSERT INTO projectdraft.orderpayment VALUES (303, 503, 'PAID');
+INSERT INTO projectdraft.orderpayment VALUES (304, 504, 'PAID');
+INSERT INTO projectdraft.orderpayment VALUES (305, 505, 'PAID');
+
+
 
 create table projectdraft.product_type
   (Prodtype_id INT IDENTITY(700,1) NOT NULL,
