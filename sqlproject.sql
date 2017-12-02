@@ -301,15 +301,44 @@ create table projectdraft.order_line
 
 INSERT INTO projectdraft.order_line VALUES (300, 5,'1300A1', GETDATE(), dateadd(day, 30, getdate()))
 
-create table projectdraft.inventory
-  (Inventory_id INT IDENTITY(1300,1) NOT NULL,
-  Sku_id VARCHAR(15) UNIQUE ,
-  Product_id VARCHAR(15),
-  Prodtype_id INT,
-  Returnable VARCHAR(15),
-  PRIMARY KEY (Product_id),
-  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type
-  )
+
+
+
+
+/* INVENTORY */
+
+CREATE TABLE projectdraft.inventory(
+  Inventory_id int IDENTITY(1300,1) NOT NULL UNIQUE,
+  Product_id varchar(15),
+  SKU_id varchar(15) UNIQUE,
+  Prodtype_id int,
+  Returnable varchar(15),
+  PRIMARY KEY (Inventory_id),
+  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type(Prodtype_id)
+  );
+
+INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
+SELECT projectdraft.track.track_id,concat('X1',Track_id),Prodtype_id,'No'
+FROM projectdraft.track;
+
+INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
+SELECT projectdraft.album.album_id,concat('X1',Album_id),Prodtype_id,'No'
+FROM projectdraft.album
+WHERE Prodtype_id = 701;
+
+INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
+SELECT projectdraft.album.album_id,concat('X1',Album_id),Prodtype_id,'Yes'
+FROM projectdraft.album
+WHERE Prodtype_id = 702;
+
+INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
+SELECT projectdraft.merchandise.Merch_id,concat('X1',Merch_id),Prodtype_id,'Yes'
+FROM projectdraft.merchandise;
+
+INSERT INTO projectdraft.inventory(Product_id, SKU_id,Prodtype_id,returnable)
+SELECT projectdraft.ticket.ticket_id,concat('X1',Ticket_id),Prodtype_id,'No'
+FROM projectdraft.ticket;
+
 
 
 delete from projectdraft.order_line
@@ -318,12 +347,3 @@ delete from projectdraft.inventory
 select * from projectdraft.album
 
 select * from projectdraft.inventory
-
-
-INSERT INTO projectdraft.inventory (Product_id, Prodtype_id, Sku_id, Returnable)
-SELECT projectdraft.album.Album_id, Prodtype_id, concat('A1-', Prodtype_id), 'NO'
-FROM projectdraft.album
-
-INSERT INTO projectdraft.inventory (Product_id, Prodtype_id, Sku_id, Returnable)
-SELECT projectdraft.album.Album_id, Prodtype_id, concat('A1-', Prodtype_id), 'NO'
-FROM projectdraft.album where Prodtype_id = 700
