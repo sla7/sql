@@ -159,7 +159,6 @@ CREATE TABLE projectdraft.artist(
 INSERT INTO projectdraft.artist VALUES ('Eminem');
 INSERT INTO projectdraft.artist VALUES ('Kanye West');
 INSERT INTO projectdraft.artist VALUES ('Linkin Park');
-INSERT INTO projectdraft.artist VALUES ('Kanye West');
 INSERT INTO projectdraft.artist VALUES ('Sam Smith');
 INSERT INTO projectdraft.artist VALUES ('Adele');
 INSERT INTO projectdraft.artist VALUES ('Drake');
@@ -175,6 +174,7 @@ INSERT INTO projectdraft.artist VALUES ('Quavo');
 INSERT INTO projectdraft.artist VALUES ('Clean Bandit');
 INSERT INTO projectdraft.artist VALUES ('The Weekend');
 INSERT INTO projectdraft.artist VALUES ('Rihanna');
+INSERT INTO projectdraft.artist VALUES ('Cardi B');
 INSERT INTO projectdraft.artist VALUES ('Luke Bryan');
 INSERT INTO projectdraft.artist VALUES ('Demi Lovato');
 
@@ -183,7 +183,7 @@ CREATE TABLE projectdraft.track(
   Track_id varchar(15),
   Track_name varchar(50),
   Genre varchar(50),
-  Album_id varchar(15),
+  Album_id int,
   Artist_id int,
   Prodtype_id varchar(15),
   Track_price float,
@@ -198,8 +198,8 @@ INSERT INTO projectdraft.track VALUES ('T4','Too Good at Goodbyes','Pop',903, 80
 INSERT INTO projectdraft.track VALUES ('T5','Hello','Pop',904, 804, 700, 1.29);
 INSERT INTO projectdraft.track VALUES ('T6','Fireworks','R&B',905, 805, 700, 1.29);
 INSERT INTO projectdraft.track VALUES ('T7','In The Morning','Hip Hop',906, 806, 700, 1.29);
-INSERT INTO projectdraft.track VALUES ('T8','Havana','Pop',907, 806, 700, 1.29);
-INSERT INTO projectdraft.track VALUES ('T9','Shape of You','Pop',907, 806, 700, 1.29);
+INSERT INTO projectdraft.track VALUES ('T8','Havana','Pop',907, 808, 700, 1.29);
+INSERT INTO projectdraft.track VALUES ('T9','Shape of You','Pop',NULL, 809, 700, 1.29);
 
 
 
@@ -230,35 +230,61 @@ INSERT INTO projectdraft.album VALUES ('A11','The Thrill of It All', 2017, 'Pop'
 INSERT INTO projectdraft.album VALUES ('A12','25', 2015, 'Pop', 702, 804, 10.99);
 INSERT INTO projectdraft.album VALUES ('A13','Thank Me Later', 2010, 'R&B', 702, 805, 6.99);
 INSERT INTO projectdraft.album VALUES ('A14','Cole World', 2011, 'Hip Hop', 702, 806, 11.99);
-INSERT INTO projectdraft.album VALUES ('A15','Heartbreak On A Full Moon', 2017, 'Hip Hop', 701, 806, 16.99);
-INSERT INTO projectdraft.album VALUES ('A16','What Makes You Country', 2017, 'Country', 701, 806, 9.99);
+INSERT INTO projectdraft.album VALUES ('A15','Heartbreak On A Full Moon', 2017, 'Hip Hop', 701, 807, 16.99);
+INSERT INTO projectdraft.album VALUES ('A16','What Makes You Country', 2017, 'Country', 701, 818, 9.99);
 
 
-create table projectdraft.merchandise
-  (Merch_id VARCHAR(15),
-  Merchandise_name VARCHAR(15),
-  Prodtype_id VARCHAR(15),
-  Artist_id INT,
-  Merch_price INT,
+CREATE TABLE projectdraft.merchandise(
+  Merch_id varchar(15),
+  Merchandise_name varchar(50),
+  Prodtype_id int,
+  Artist_id int,
+  Merch_price float,
   PRIMARY KEY (Merch_id),
-  FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist);
+  FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist(Artist_id),
+  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type(Prodtype_id)
+);
 
-insert into projectdraft.merchandise VALUES ('M1','Drake T-SHIRT', 701, 800, 29.99 )
+INSERT INTO projectdraft.merchandise VALUES ('M1','Eminem Hoodie', 703, 800, 45.00);
+INSERT INTO projectdraft.merchandise VALUES ('M2','Kanye Poster', 703, 801, 20.00);
+INSERT INTO projectdraft.merchandise VALUES ('M3','Linkin Park Hat', 703, 802, 30.00);
+INSERT INTO projectdraft.merchandise VALUES ('M4','Sam Smith Hoodie', 703, 803, 72.99);
+INSERT INTO projectdraft.merchandise VALUES ('M5','Adele Bag', 703, 804, 40.00);
+INSERT INTO projectdraft.merchandise VALUES ('M6','Drake Shirt', 703, 805, 15.00);
+INSERT INTO projectdraft.merchandise VALUES ('M7','J. Cole Duffel', 703, 806, 65.00);
+INSERT INTO projectdraft.merchandise VALUES ('M8','The Weekend Keychain', 703, 816, 8.00);
+INSERT INTO projectdraft.merchandise VALUES ('M9','Cardi B Beanie', 703, 818, 20.00);
+INSERT INTO projectdraft.merchandise VALUES ('M7','Rihanna Socks', 703, 817, 65.00);
 
-create table projectdraft.ticket
-  (Ticket_id VARCHAR(15),
-  Event_name VARCHAR(15),
-  Event_date Date,
-  Event_Location VARCHAR(15),
-  Ticket_price INT,
-  Prodtype_id INT,
-  Artist_id INT,
+
+CREATE TABLE projectdraft.ticket(
+  Ticket_id varchar(15),
+  Event_name varchar(100),
+  Event_date date,
+  Event_location varchar(50),
+  Artist_id int,
+  Prodtype_id int,
+  Ticket_price int,
   PRIMARY KEY (Ticket_id),
-  FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist,
-  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type
-  )
+  FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist(Artist_id),
+  FOREIGN KEY (Prodtype_id) REFERENCES projectdraft.product_type(Prodtype_id)
+  );
 
-INSERT into projectdraft.ticket VALUES ('TICK1','Drake Concert', '2018/01/20', 'SAP Center', 59.99, 702, 800)
+INSERT INTO projectdraft.ticket VALUES ('TICK1','Eminem Concert', '08/20/2018', 'SAP Center',800,704,65.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK2','Kanye Concert', '09/25/2018', 'Oracle Coliseum',801,704,40.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK3','Linkin Park: One More Light', '12/15/2017', 'Fox Theatre',802,704,80.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK4','Sam Smith: The Thrill of It All', '08/24/2018', 'Shoreline',803,704,130.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK5','Adele Live 2018', '05/10/2018', 'Staples Center',804,704,110.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK6','Drake: Thank Me Later', '06/27/2018', 'Melbourne Rod Laver Arena',805,704,150.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK7','Cole World', '07/18/2018', 'The Observatory',806,704,108.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK8','Imagine Dragons', '12/30/2017', '1stBank Center',812,704,55.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK9','Charlie Puth', '12/15/2017', 'Philips Arena',813,704,70.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK10','Quavo', '1/10/2018', 'Madison Square Garden',814,704,40.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK11','Clean Bandit', '03/27/2018', 'The Showbox',815,704,50.00);
+INSERT INTO projectdraft.ticket VALUES ('TICK12','98 Degrees', '11/19/2018', 'Flint Center',821,704,25.00);
+
+
+
 
 create table projectdraft.order_line
 (
