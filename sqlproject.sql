@@ -356,3 +356,6 @@ select * from project.inventory
 select * from project.inventory WHERE Prodtype_id = 702
 
 select * from project.billing_info
+
+select * from project.track t
+inner join project.artist a on t.Artist_id = a.Artist_id 
