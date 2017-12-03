@@ -351,11 +351,33 @@ create table project.order_line
 INSERT INTO project.order_line VALUES (300, 5,'X1T1', GETDATE(), dateadd(day, 30, getdate()))
 
 
+
+/* ORDER LINE */
+
+CREATE TABLE project.order_line(
+  Order_Line_id int IDENTITY(1400,1) NOT NULL,
+  Order_id int,
+  Quantity int,
+  Sku_id varchar(15),
+  Purchase_date date,
+  Returnable_date date,
+  Original_Order_id int,
+  PRIMARY KEY (Order_Line_id),
+  FOREIGN KEY (Order_id) REFERENCES project.orders(Order_id),
+  FOREIGN KEY (SKU_id) REFERENCES project.inventory(SKU_id)
+);
+
+INSERT INTO project.order_line VALUES (300, 2,'X1TICK12', 12/04/2017, NULL, NULL);
+INSERT INTO project.order_line VALUES (301, 1,'X1M6', 11/01/2017, dateadd(day, 30, getdate()), NULL);
+INSERT INTO project.order_line VALUES (301, 1,'X1M2', 11/01/2017, dateadd(day, 30, getdate()), NULL);
+INSERT INTO project.order_line VALUES (301, 2,'X1A13', 11/01/2017, dateadd(day, 30, getdate()), NULL);
+INSERT INTO project.order_line VALUES (302, 1,'X1A17', 09/10/2017, NULL, NULL);
+INSERT INTO project.order_line VALUES (303, 1,'X1T4', 10/22/2017, NULL, NULL);
+INSERT INTO project.order_line VALUES (304, 1,'X1M6', 11/15/2017, NULL, 11/01/2017);
+
+
 select * from project.inventory
 
 select * from project.inventory WHERE Prodtype_id = 702
 
 select * from project.billing_info
-
-select * from project.track t
-inner join project.artist a on t.Artist_id = a.Artist_id 
