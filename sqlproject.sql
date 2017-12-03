@@ -354,3 +354,5 @@ INSERT INTO project.order_line VALUES (300, 5,'X1T1', GETDATE(), dateadd(day, 30
 select * from project.inventory
 
 select * from project.inventory WHERE Prodtype_id = 702
+
+select * from project.billing_info
