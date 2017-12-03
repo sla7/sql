@@ -373,7 +373,7 @@ INSERT INTO project.order_line VALUES (301, 1,'X1M2', 11/01/2017, dateadd(day, 3
 INSERT INTO project.order_line VALUES (301, 2,'X1A13', 11/01/2017, dateadd(day, 30, getdate()), NULL);
 INSERT INTO project.order_line VALUES (302, 1,'X1A17', 09/10/2017, NULL, NULL);
 INSERT INTO project.order_line VALUES (303, 1,'X1T4', 10/22/2017, NULL, NULL);
-INSERT INTO project.order_line VALUES (304, 1,'X1M6', 11/15/2017, NULL, 11/01/2017);
+INSERT INTO project.order_line VALUES (304, 1,'X1M6', 11/15/2017, NULL, 301);
 
 
 select * from project.inventory
