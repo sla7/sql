@@ -63,17 +63,25 @@ INSERT INTO projectdraft.shipping_info VALUES ('Amy','James','100 Apple Way','Ap
 INSERT INTO projectdraft.shipping_info VALUES ('Cat','Smith','200 Apple Way',' ','Santa Clara','CA','95131','408-503-2222',6);
 
 
-create table projectdraft.orders
-  (Orders_id INT IDENTITY(300,1) NOT NULL,
-  Order_date DATETIME,
-  Paymentstatus VARCHAR(15),
-  Billing_address VARCHAR(30),
-  total int,
-  Customer_id INT,
+
+/* ORDERS */
+
+CREATE TABLE projectdraft.orders(
+  Orders_id       int IDENTITY(300,1) NOT NULL UNIQUE,
+  Order_number    int,
+  Order_date      DATE,
+  Payment_status  VARCHAR(15),
+  Customer_id     int,
+  Total           float,
   PRIMARY KEY (orders_id),
   FOREIGN KEY (Customer_id) REFERENCES projectdraft.customer);
 
-insert into projectdraft.orders VALUES (getdate(), 'paid', '1666 Foxy', 45, 1)
+INSERT INTO projectdraft.orders VALUES (1,getdate(),'Paid',1, 45.00)
+INSERT INTO projectdraft.orders VALUES (2,getdate(),'Paid',1, 11.99)
+INSERT INTO projectdraft.orders VALUES (3,getdate(),'Paid',1, 65.00)
+INSERT INTO projectdraft.orders VALUES (4,getdate(),'Paid',2, 1.29)
+INSERT INTO projectdraft.orders VALUES (5,getdate(),'Paid',3, 20.00)
+INSERT INTO projectdraft.orders VALUES (6,getdate(),'Paid',4, 25.00)
 
 
 
@@ -82,7 +90,7 @@ insert into projectdraft.orders VALUES (getdate(), 'paid', '1666 Foxy', 45, 1)
 CREATE TABLE projectdraft.payment_type(
   Payment_type_id int IDENTITY(400,1) NOT NULL,
   Payment_type    varchar(30),
-  PRIMARY KEY (Payment_type_id)
+  PRIMARY KEY     (Payment_type_id)
   );
 
 INSERT INTO projectdraft.payment_type values ('American Express');
@@ -93,14 +101,14 @@ INSERT INTO projectdraft.payment_type values ('Visa');
 /* PAYMENT METHOD */
 
 CREATE TABLE projectdraft.paymentmethod(
-  Payment_id int IDENTITY(500,1) NOT NULL,
-  Customer_id int,
+  Payment_id      int IDENTITY(500,1) NOT NULL,
+  Customer_id     int,
   Payment_type_id int,
-  Card_Number VARCHAR(19),
-  NameOnCard VARCHAR(50),
-  CardExp DATE,
-  Card_CSV_code VARCHAR(15),
-  Billing_id int,
+  Card_Number     VARCHAR(19),
+  NameOnCard      VARCHAR(50),
+  CardExp         DATE,
+  Card_CSV_code   VARCHAR(15),
+  Billing_id      int,
   PRIMARY KEY (Payment_id),
   FOREIGN KEY (Customer_id) REFERENCES projectdraft.customer(Customer_id),
   FOREIGN KEY (Payment_type_id) REFERENCES projectdraft.payment_type,
@@ -117,8 +125,8 @@ INSERT INTO projectdraft.paymentmethod VALUES (6,400,'4352-5423-6675-5000','Will
 
 /* ORDER PAYMENT */
 
-create table projectdraft.orderpayment
-  (Order_id int,
+create table projectdraft.orderpayment(
+  Order_id int,
   Payment_id int,
   Payment_status varchar(15)
   FOREIGN KEY (Order_id) REFERENCES projectdraft.orders,
