@@ -159,8 +159,8 @@ INSERT INTO project.product_type VALUES ('Ticket');
 /* ARTIST */
 
 CREATE TABLE project.artist(
-  Artist_id int IDENTITY(800,1) NOT NULL UNIQUE,
-  Artist_name varchar(15)
+  Artist_id int IDENTITY(800,1) NOT NULL,
+  Artist_name varchar(50)
   PRIMARY KEY (Artist_id)
   );
 
