@@ -1,7 +1,7 @@
 /* CUSTOMER */
 
 CREATE TABLE project.customer(
-  Customer_id int IDENTITY(1,1) NOT NULL UNIQUE,
+  Customer_id int IDENTITY(1,1) NOT NULL,
   First_Name varchar(15),
   Last_Name VARCHAR(15),
   Email_Address varchar(50),
@@ -13,7 +13,7 @@ CREATE TABLE project.customer(
 
 INSERT INTO project.customer VALUES ('Steven','La','sla@gmail.com','408-123-4567  ',100,200);
 INSERT INTO project.customer VALUES ('Ken','Ohata','kohata@gmail.com','408-123-4568  ',101,201);
-INSERT INTO project.customer VALUES ('Andrew','Lee','alee@gmail.com','408-123-4569  ',102,202);
+INSERT INTO project.customer VALUES ('Andrew','Lee','andrew.lee@comcast.com','408-956-8631',102,202);
 INSERT INTO project.customer VALUES ('Emily','Ho','eho@gmail.com','408-123-4560  ',103,203);
 INSERT INTO project.customer VALUES ('Alice','James','ajames@gmail.com','408-123-4561  ',104,204);
 INSERT INTO project.customer VALUES ('Will','Smith','wsmith@gmail.com','408-123-4562  ',105,205);
@@ -34,7 +34,7 @@ CREATE TABLE project.billing_info(
 
 INSERT INTO project.billing_info VALUES ('Steven','La','1560 Shumaker','San Jose','CA','95131',1);
 INSERT INTO project.billing_info VALUES ('Ken','Ohata','200 Music Way','Irvine','CA','92602',2);
-INSERT INTO project.billing_info VALUES ('Andrew','Lee','300 Music Way','Irvine','CA','92602',3);
+INSERT INTO project.billing_info VALUES ('Andrew','Lee','865 Sake Business Center','Milpitas','CA','95035',3);
 INSERT INTO project.billing_info VALUES ('Emily','Ho','400 Music Way','Irvine','CA','92602',4);
 INSERT INTO project.billing_info VALUES ('Alice','James','500 Music Way','Irvine','CA','92602',5);
 INSERT INTO project.billing_info VALUES ('Will','Smith','600 Music Way','Irvine','CA','92602',6);
@@ -55,9 +55,9 @@ CREATE TABLE project.shipping_info(
   FOREIGN KEY (Customer_id) REFERENCES project.customer(Customer_id)
 );
 
-INSERT INTO project.shipping_info VALUES ('Steven','La','3975 Freedom Cicle',' ','Santa Clara','CA','95131','408-503-0289  ',1);
+INSERT INTO project.shipping_info VALUES ('Steven','La','3975 Freedom Cicle',' ','Santa Clara','CA','95131','408-503-0289',1);
 INSERT INTO project.shipping_info VALUES ('Ken','Ohata','200 Music Way',' ','Irvine','CA','92602','408-123-4568  ',2);
-INSERT INTO project.shipping_info VALUES ('Andrew','Lee','300 Music Way',' ','Irvine','CA','92602','408-123-4569  ',3);
+INSERT INTO project.shipping_info VALUES ('Andrew','Lee','865 Sake Business Center',' ','Milpitas','CA','95035','408-956-8631',3);
 INSERT INTO project.shipping_info VALUES ('Emily','Ho','400 Music Way',' ','Irvine','CA','92602','408-123-4560  ',4);
 INSERT INTO project.shipping_info VALUES ('Amy','James','100 Apple Way','Apt 605','Santa Clara','CA','95131','408-503-1111  ',5);
 INSERT INTO project.shipping_info VALUES ('Cat','Smith','200 Apple Way',' ','Santa Clara','CA','95131','408-503-2222  ',6);
@@ -186,6 +186,7 @@ INSERT INTO project.artist VALUES ('Cardi B');
 INSERT INTO project.artist VALUES ('Luke Bryan');
 INSERT INTO project.artist VALUES ('Demi Lovato');
 INSERT INTO project.artist VALUES ('98 Degrees');
+INSERT INTO project.artist VALUES ('Thomas Dausgaard');
 
 
 CREATE TABLE project.track(
@@ -351,6 +352,3 @@ INSERT INTO project.order_line VALUES (300, 5,'X1T1', GETDATE(), dateadd(day, 30
 
 
 select * from project.inventory
-
-select * from project.customer 
-WHERE Email_Address = 'eho@gmail.com'
