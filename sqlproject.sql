@@ -383,3 +383,5 @@ select * from project.inventory
 select * from project.inventory WHERE Prodtype_id = 702
 
 select * from project.billing_info
+
+SELECT * FROM project.album
