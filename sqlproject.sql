@@ -348,3 +348,6 @@ create table project.order_line
 )
 
 INSERT INTO project.order_line VALUES (300, 5,'X1T1', GETDATE(), dateadd(day, 30, getdate()))
+
+
+select * from project.inventory
