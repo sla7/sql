@@ -315,27 +315,28 @@ CREATE TABLE project.inventory(
   FOREIGN KEY (Prodtype_id) REFERENCES project.product_type(Prodtype_id)
  );
 
-INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable)
-SELECT project.track.track_id,concat('X1',Track_id),Prodtype_id,1000,'No'
+INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable,price)
+SELECT project.track.track_id,concat('X1',Track_id),Prodtype_id,1000,'No',Track_price
 FROM project.track;
 
-INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable)
-SELECT project.album.album_id,concat('X1',Album_id),Prodtype_id,1000,'No'
+INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable,price)
+SELECT project.album.album_id,concat('X1',Album_id),Prodtype_id,1000,'No',Album_price
 FROM project.album
 WHERE Prodtype_id = 701;
 
-INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable)
-SELECT project.album.album_id,concat('X1',Album_id),Prodtype_id,1000,'Yes'
+INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable,price)
+SELECT project.album.album_id,concat('X1',Album_id),Prodtype_id,1000,'Yes',Album_price
 FROM project.album
 WHERE Prodtype_id = 702;
 
-INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable)
-SELECT project.merchandise.Merch_id,concat('X1',Merch_id),Prodtype_id,1000,'Yes'
+INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable,price)
+SELECT project.merchandise.Merch_id,concat('X1',Merch_id),Prodtype_id,1000,'Yes', Merch_price
 FROM project.merchandise;
 
-INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable)
-SELECT project.ticket.ticket_id,concat('X1',Ticket_id),Prodtype_id,1000,'No'
+INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable,price)
+SELECT project.ticket.ticket_id,concat('X1',Ticket_id),Prodtype_id,1000,'No', Ticket_price
 FROM project.ticket;
+
 
 /* ORDER LINE */
 
