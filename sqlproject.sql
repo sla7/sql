@@ -84,6 +84,31 @@ INSERT INTO project.orders VALUES (4,'10/22/2017','Paid',2,0.99);
 INSERT INTO project.orders VALUES (5,'11/15/2017','Refunded',3,-25.00);
 
 
+/* ORDER LINE */
+
+CREATE TABLE project.order_line(
+  Order_Line_id int IDENTITY(1400,1) NOT NULL,
+  Order_id int,
+  Order_type varchar(15),
+  Quantity int,
+  Sku_id varchar(15),
+  Purchase_date date,
+  Returnable_date date,
+  Original_Order_id int,
+  PRIMARY KEY (Order_Line_id),
+  FOREIGN KEY (Order_id) REFERENCES project.orders(Order_id),
+  FOREIGN KEY (SKU_id) REFERENCES project.inventory(SKU_id)
+);
+
+INSERT INTO project.order_line VALUES (300,'Purchase', 2,'X1TICK12', '12/04/2017', NULL, NULL);
+INSERT INTO project.order_line VALUES (301,'Purchase', 1,'X1M6', '11/01/2017', dateadd(day, 30, getdate()), NULL);
+INSERT INTO project.order_line VALUES (301,'Purchase', 1,'X1M2', '11/01/2017', dateadd(day, 30, getdate()), NULL);
+INSERT INTO project.order_line VALUES (301,'Purchase', 2,'X1A13', '11/01/2017', dateadd(day, 30, getdate()), NULL);
+INSERT INTO project.order_line VALUES (302,'Purchase', 1,'X1A17', '09/10/2017', NULL, NULL);
+INSERT INTO project.order_line VALUES (303,'Purchase', 1,'X1T4', '10/22/2017', NULL, NULL);
+INSERT INTO project.order_line VALUES (304,'Return', 1,'X1M6', '11/15/2017', NULL, 301);
+
+
 
 /* PAYMENT TYPE */
 
@@ -117,7 +142,8 @@ CREATE TABLE project.paymentmethod(
 
 INSERT INTO project.paymentmethod VALUES (1,400,'4352-5423-6675-4404','Steven La','01/20/2022','234',100);
 INSERT INTO project.paymentmethod VALUES (2,400,'4352-5423-6675-3333','Ken Ohata','02/18/2019','200',101);
-INSERT INTO project.paymentmethod VALUES (3,400,'4352-5423-6675-9305','Andrew Lee','08/05/2018','196',102);
+INSERT INTO project.paymentmethod VALUES (3,400,'4352-5423-6675-9304','
+                                          Lee','08/05/2018','196',102);
 INSERT INTO project.paymentmethod VALUES (4,400,'4352-5423-6675-2222','Emily Ho','04/10/2021','789',103);
 INSERT INTO project.paymentmethod VALUES (5,400,'4352-5423-6675-4000','Alice James','05/07/2022','453',104);
 INSERT INTO project.paymentmethod VALUES (6,400,'4352-5423-6675-5000','Will Smith','06/11/2019','567',105);
@@ -216,7 +242,6 @@ INSERT INTO project.track VALUES ('T8','Havana','Pop','Epic Records',907, 808, 7
 INSERT INTO project.track VALUES ('T9','Shape of You','Pop','Asylum Records',NULL, 809, 700, 1.29);
 
 
-
 CREATE TABLE project.album(
   Album_id varchar(15),
   Album_name varchar(200),
@@ -250,7 +275,6 @@ INSERT INTO project.album VALUES ('A16','What Makes You Country', 2017, 'Country
 INSERT INTO project.album VALUES ('A17','Nielson: Symphonies Nos. 3 & 4', 2017, 'Classical','Seattle Symphony Media',701, 822, 6.99);
 INSERT INTO project.album VALUES ('A18','Atomic Blonde', 2017, 'Rock','Back Lot Music', 701, 823, 9.99);
 INSERT INTO project.album VALUES ('A19','Blonde', 2017, 'R&B','Boys Dont Cry', 701, 824, 9.99);
-
 
 
 CREATE TABLE project.merchandise(
