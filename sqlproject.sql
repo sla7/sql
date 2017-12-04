@@ -77,12 +77,12 @@ CREATE TABLE project.orders(
   FOREIGN KEY (Customer_id) REFERENCES project.customer
 );
 
-INSERT INTO project.orders VALUES (1,'12/04/2017','Paid',1,150.30);
-INSERT INTO project.orders VALUES (2,'11/01/2017','Paid',1,51.99);
-INSERT INTO project.orders VALUES (3,'09/10/2017','Paid',1,6.99);
-INSERT INTO project.orders VALUES (4,'10/22/2017','Paid',2,0.99);
+INSERT INTO project.orders VALUES (1,'12/04/2017','Paid',1,Null);
+INSERT INTO project.orders VALUES (2,'11/01/2017','Paid',1,Null);
+INSERT INTO project.orders VALUES (3,'09/10/2017','Paid',1,Null);
+INSERT INTO project.orders VALUES (4,'10/22/2017','Paid',2,Null);
 INSERT INTO project.orders VALUES (5,'11/15/2017','Refunded',3,-25.00);
-INSERT INTO project.orders VALUES (6,'1/22/2017','Paid',2,29.99);
+INSERT INTO project.orders VALUES (6,'1/22/2017','Paid',2,Null);
 
 
 /* PAYMENT TYPE */
@@ -360,6 +360,38 @@ INSERT INTO project.order_line VALUES (302,'Purchase', 1,'X1A17', '09/10/2017', 
 INSERT INTO project.order_line VALUES (303,'Purchase', 1,'X1T4', '10/22/2017', NULL, NULL);
 INSERT INTO project.order_line VALUES (304,'Return', 1,'X1M6', '11/15/2017', NULL, 301);
 
+
+/* updates orders totals */
+
+UPDATE project.orders
+Set Total = (SELECT sum(price*o.Quantity) FROM project.order_line o
+INNER join project.inventory i on o.Sku_id = i.SKU_id where Order_id = 301)
+Where Order_id = 301
+
+UPDATE project.orders
+Set Total = (SELECT sum(price*o.Quantity) FROM project.order_line o
+INNER join project.inventory i on o.Sku_id = i.SKU_id where Order_id = 300)
+Where Order_id = 300
+
+UPDATE project.orders
+Set Total = (SELECT sum(price*o.Quantity) FROM project.order_line o
+INNER join project.inventory i on o.Sku_id = i.SKU_id where Order_id = 302)
+Where Order_id = 302
+
+UPDATE project.orders
+Set Total = (SELECT sum(price*o.Quantity) FROM project.order_line o
+INNER join project.inventory i on o.Sku_id = i.SKU_id where Order_id = 303)
+Where Order_id = 303
+
+UPDATE project.orders
+Set Total = (SELECT sum(price*o.Quantity) FROM project.order_line o
+INNER join project.inventory i on o.Sku_id = i.SKU_id where Order_id = 304)
+Where Order_id = 304
+
+UPDATE project.orders
+Set Total = (SELECT sum(price*o.Quantity) FROM project.order_line o
+INNER join project.inventory i on o.Sku_id = i.SKU_id where Order_id = 305)
+Where Order_id = 305
 
 
 
