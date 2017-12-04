@@ -11,7 +11,7 @@ CREATE TABLE project.customer(
   PRIMARY KEY (Customer_id),
 );
 
-INSERT INTO project.customer VALUES ('Steven','La','sla@gmail.com','408-123-4567  ',100,200);
+INSERT INTO project.customer VALUES ('Steven','La','sla@gmail.com','408-503-0289',100,200);
 INSERT INTO project.customer VALUES ('Ken','Ohata','kohata@gmail.com','408-123-4568  ',101,201);
 INSERT INTO project.customer VALUES ('Andrew','Lee','andrew.lee@comcast.com','408-956-8631',102,202);
 INSERT INTO project.customer VALUES ('Emily','Ho','eho@gmail.com','408-123-4560  ',103,203);
