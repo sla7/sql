@@ -11,12 +11,12 @@ CREATE TABLE project.customer(
   PRIMARY KEY (Customer_id),
 );
 
-INSERT INTO project.customer VALUES ('Steven','La','sla@gmail.com','408-503-0289',100,200);
-INSERT INTO project.customer VALUES ('Ken','Ohata','kohata@gmail.com','408-123-4568  ',101,201);
-INSERT INTO project.customer VALUES ('Andrew','Lee','andrew.lee@comcast.com','408-956-8631',102,202);
-INSERT INTO project.customer VALUES ('Emily','Ho','eho@gmail.com','408-123-4560  ',103,203);
-INSERT INTO project.customer VALUES ('Alice','James','ajames@gmail.com','408-123-4561  ',104,204);
-INSERT INTO project.customer VALUES ('Will','Smith','wsmith@gmail.com','408-123-4562  ',105,205);
+INSERT INTO project.customer VALUES ('Steven','La','sla@gmail.com','408-503-0289  ',100,200);
+INSERT INTO project.customer VALUES ('Ken','Ohata','kohata@gmail.com','408-123-4568    ',101,201);
+INSERT INTO project.customer VALUES ('Andrew','Lee','andrew.lee@comcast.com','408-956-8631  ',102,202);
+INSERT INTO project.customer VALUES ('Emily','Ho','eho@gmail.com','408-123-4560    ',103,203);
+INSERT INTO project.customer VALUES ('Alice','James','ajames@gmail.com','408-123-4561    ',104,204);
+INSERT INTO project.customer VALUES ('Will','Smith','wsmith@gmail.com','408-123-4562    ',105,205);
 
 
 CREATE TABLE project.billing_info(
@@ -55,12 +55,12 @@ CREATE TABLE project.shipping_info(
   FOREIGN KEY (Customer_id) REFERENCES project.customer(Customer_id)
 );
 
-INSERT INTO project.shipping_info VALUES ('Steven','La','3975 Freedom Cicle',' ','Santa Clara','CA','95131','408-503-0289',1);
-INSERT INTO project.shipping_info VALUES ('Ken','Ohata','200 Music Way',' ','Irvine','CA','92602','408-123-4568  ',2);
-INSERT INTO project.shipping_info VALUES ('Andrew','Lee','865 Sake Business Center',' ','Milpitas','CA','95035','408-956-8631',3);
-INSERT INTO project.shipping_info VALUES ('Emily','Ho','400 Music Way',' ','Irvine','CA','92602','408-123-4560  ',4);
-INSERT INTO project.shipping_info VALUES ('Amy','James','100 Apple Way','Apt 605','Santa Clara','CA','95131','408-503-1111  ',5);
-INSERT INTO project.shipping_info VALUES ('Cat','Smith','200 Apple Way',' ','Santa Clara','CA','95131','408-503-2222  ',6);
+INSERT INTO project.shipping_info VALUES ('Steven','La','3975 Freedom Cicle',' ','Santa Clara','CA','95131','408-503-0289  ',1);
+INSERT INTO project.shipping_info VALUES ('Ken','Ohata','200 Music Way',' ','Irvine','CA','92602','408-123-4568    ',2);
+INSERT INTO project.shipping_info VALUES ('Andrew','Lee','865 Sake Business Center',' ','Milpitas','CA','95035','408-956-8631  ',3);
+INSERT INTO project.shipping_info VALUES ('Emily','Ho','400 Music Way',' ','Irvine','CA','92602','408-123-4560    ',4);
+INSERT INTO project.shipping_info VALUES ('Amy','James','100 Apple Way','Apt 605','Santa Clara','CA','95131','408-503-1111    ',5);
+INSERT INTO project.shipping_info VALUES ('Cat','Smith','200 Apple Way',' ','Santa Clara','CA','95131','408-503-2222    ',6);
 
 
 
@@ -73,7 +73,7 @@ CREATE TABLE project.orders(
   Payment_status varchar(15),
   Customer_id int,
   Total float,
-  PRIMARY KEY (order_id),
+  PRIMARY KEY (Order_id),
   FOREIGN KEY (Customer_id) REFERENCES project.customer
 );
 
@@ -82,32 +82,7 @@ INSERT INTO project.orders VALUES (2,'11/01/2017','Paid',1,51.99);
 INSERT INTO project.orders VALUES (3,'09/10/2017','Paid',1,6.99);
 INSERT INTO project.orders VALUES (4,'10/22/2017','Paid',2,0.99);
 INSERT INTO project.orders VALUES (5,'11/15/2017','Refunded',3,-25.00);
-
-
-/* ORDER LINE */
-
-CREATE TABLE project.order_line(
-  Order_Line_id int IDENTITY(1400,1) NOT NULL,
-  Order_id int,
-  Order_type varchar(15),
-  Quantity int,
-  Sku_id varchar(15),
-  Purchase_date date,
-  Returnable_date date,
-  Original_Order_id int,
-  PRIMARY KEY (Order_Line_id),
-  FOREIGN KEY (Order_id) REFERENCES project.orders(Order_id),
-  FOREIGN KEY (SKU_id) REFERENCES project.inventory(SKU_id)
-);
-
-INSERT INTO project.order_line VALUES (300,'Purchase', 2,'X1TICK12', '12/04/2017', NULL, NULL);
-INSERT INTO project.order_line VALUES (301,'Purchase', 1,'X1M6', '11/01/2017', dateadd(day, 30, getdate()), NULL);
-INSERT INTO project.order_line VALUES (301,'Purchase', 1,'X1M2', '11/01/2017', dateadd(day, 30, getdate()), NULL);
-INSERT INTO project.order_line VALUES (301,'Purchase', 2,'X1A13', '11/01/2017', dateadd(day, 30, getdate()), NULL);
-INSERT INTO project.order_line VALUES (302,'Purchase', 1,'X1A17', '09/10/2017', NULL, NULL);
-INSERT INTO project.order_line VALUES (303,'Purchase', 1,'X1T4', '10/22/2017', NULL, NULL);
-INSERT INTO project.order_line VALUES (304,'Return', 1,'X1M6', '11/15/2017', NULL, 301);
-
+INSERT INTO project.orders VALUES (6,'1/22/2017','Paid',2,29.99);
 
 
 /* PAYMENT TYPE */
@@ -142,8 +117,7 @@ CREATE TABLE project.paymentmethod(
 
 INSERT INTO project.paymentmethod VALUES (1,400,'4352-5423-6675-4404','Steven La','01/20/2022','234',100);
 INSERT INTO project.paymentmethod VALUES (2,400,'4352-5423-6675-3333','Ken Ohata','02/18/2019','200',101);
-INSERT INTO project.paymentmethod VALUES (3,400,'4352-5423-6675-9304','
-                                          Lee','08/05/2018','196',102);
+INSERT INTO project.paymentmethod VALUES (3,400,'4352-5423-6675-9304','Lee','08/05/2018','196',102);
 INSERT INTO project.paymentmethod VALUES (4,400,'4352-5423-6675-2222','Emily Ho','04/10/2021','789',103);
 INSERT INTO project.paymentmethod VALUES (5,400,'4352-5423-6675-4000','Alice James','05/07/2022','453',104);
 INSERT INTO project.paymentmethod VALUES (6,400,'4352-5423-6675-5000','Will Smith','06/11/2019','567',105);
@@ -228,7 +202,7 @@ CREATE TABLE project.track(
   Prodtype_id varchar(15),
   Track_price float,
   PRIMARY KEY (Track_id),
-  FOREIGN KEY (Artist_id) REFERENCES projectdraft.artist(Artist_id)
+  FOREIGN KEY (Artist_id) REFERENCES project.artist(Artist_id)
 );
 
 INSERT INTO project.track VALUES ('T1','Lose Yourself','Hip Hop','Interscope',900, 800, 700, 0.79);
@@ -361,6 +335,32 @@ FROM project.merchandise;
 INSERT INTO project.inventory(Product_id, SKU_id,Prodtype_id,Quantity,returnable)
 SELECT project.ticket.ticket_id,concat('X1',Ticket_id),Prodtype_id,1000,'No'
 FROM project.ticket;
+
+/* ORDER LINE */
+
+CREATE TABLE project.order_line(
+  Order_Line_id int IDENTITY(1400,1) NOT NULL,
+  Order_id int,
+  Order_type varchar(15),
+  Quantity int,
+  Sku_id varchar(15),
+  Purchase_date date,
+  Returnable_date date,
+  Original_Order_id int,
+  PRIMARY KEY (Order_Line_id),
+  FOREIGN KEY (Order_id) REFERENCES project.orders(Order_id),
+  FOREIGN KEY (SKU_id) REFERENCES project.inventory(SKU_id)
+);
+
+INSERT INTO project.order_line VALUES (300,'Purchase', 2,'X1TICK12', '12/04/2017', NULL, NULL);
+INSERT INTO project.order_line VALUES (301,'Purchase', 1,'X1M6', '11/01/2017', dateadd(day, 30, getdate()), NULL);
+INSERT INTO project.order_line VALUES (301,'Purchase', 1,'X1M2', '11/01/2017', dateadd(day, 30, getdate()), NULL);
+INSERT INTO project.order_line VALUES (301,'Purchase', 2,'X1A13', '11/01/2017', dateadd(day, 30, getdate()), NULL);
+INSERT INTO project.order_line VALUES (302,'Purchase', 1,'X1A17', '09/10/2017', NULL, NULL);
+INSERT INTO project.order_line VALUES (303,'Purchase', 1,'X1T4', '10/22/2017', NULL, NULL);
+INSERT INTO project.order_line VALUES (304,'Return', 1,'X1M6', '11/15/2017', NULL, 301);
+
+
 
 
 
