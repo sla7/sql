@@ -310,6 +310,7 @@ CREATE TABLE project.inventory(
   Prodtype_id int,
   Quantity int,
   Returnable varchar(15),
+  price float,
   PRIMARY KEY (Inventory_id),
   FOREIGN KEY (Prodtype_id) REFERENCES project.product_type(Prodtype_id)
  );
